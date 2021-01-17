@@ -2,10 +2,7 @@ require_relative "Board.rb"
 
 
 '''put raise conditions for invalid input
-fix win condition
-add flagging functionality
 make render look better
-fix method for placing bombs by deleting from array
 find way of passing pos to Tile class
 rest of project
 '''
@@ -20,17 +17,22 @@ class Game
         # debugger
         @board.grid.each do |row|
         row.each do |tile|
-            if tile.revealed && tile.neighbor_bomb_count ==0
+            # p tile
+        if tile.flagged
+            value =  "F"
+
+            newrow << value
+        
+    elsif tile.revealed && tile.neighbor_bomb_count ==0
                 value= "_"
                     newrow << value
+               
                 
                 elsif tile.revealed && !(tile.neighbor_bomb_count ==0)
                     value = tile.neighbor_bomb_count.to_s
                     newrow << value
             
-            elsif tile.flagged
-                value =  "F"
-                newrow << value
+            
             else 
                 value = "*"
                 newrow << value 
@@ -49,9 +51,7 @@ class Game
     # end
 
     def won?
-        !@board.grid.flatten.any? {|tile| !(tile.revealed && tile.bomb)}
-        # @board.grid.all? {|tile| tile.revealed && !tile.bomb || !tile.revealed && tile.bomb}
-        #if there is no tile that hasnt been revealed and is not a bomb then win
+        @board.grid.flatten.none? {|tile| !(tile.revealed && tile.bomb)}
     end
     def lost?
         @board.grid.flatten.any? {|tile| tile.revealed && tile.bomb}
@@ -88,15 +88,14 @@ class Game
         if action =="r"
             # @board[pos].reveal
             recursive_reveal(pos)
-            p @board[pos].revealed
-            p@board[pos].neighbor_bomb_count
-            p @board[pos].revealed && !(@board[pos].neighbor_bomb_count ==0)
-            p @board[pos].revealed && (@board[pos].neighbor_bomb_count) ==0
+            
             # @board[pos].reveal
 
         elsif action =="f"
-
+            # p @board[pos].flagged
+            p @board[pos]
             @board[pos].flag
+            
         
 
         end

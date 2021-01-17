@@ -8,19 +8,23 @@ class Board
     end
     
     def create_board
+        number_of_bombs=80
         @grid=Array.new(9) do 
             Array.new(9) {Tile.new(self)}
         end
-        indices=(0..8).to_a
-        already_seen=[]
-        3.times do 
-        i=indices.sample
-        j=indices.sample
+        indices_i=Array.new(9) {(0..8).to_a}.flatten
+        indices_j=Array.new(9) {(0..8).to_a}.flatten
+
+        number_of_bombs.times do 
+        i=indices_i.sample
+        j=indices_j.sample
         
-        if !already_seen.include?([i,j])
+        # if !already_seen.include?([i,j])
             @grid[i][j].makebomb
-        end
-            already_seen << [i,j]
+        # end
+        indices_i.delete_at(indices_i.find_index(i))
+        indices_j.delete_at(indices_j.find_index(j))
+            # already_seen << [i,j]
         end
         @grid
 

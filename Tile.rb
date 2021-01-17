@@ -33,7 +33,7 @@ def inspect
 
 end
 def flag
-!@flagged
+@flagged=!@flagged
 end
 def reveal
 @revealed=true
