@@ -1,4 +1,14 @@
 require_relative "Board.rb"
+
+
+'''put raise conditions for invalid input
+fix win condition
+add flagging functionality
+make render look better
+fix method for placing bombs by deleting from array
+find way of passing pos to Tile class
+rest of project
+'''
 class Game
     def initialize(board,game_over=false)
         @game_over=game_over
@@ -91,15 +101,13 @@ class Game
 
         end
     end
-    def recursive_reveal(pos)#
-        # if !@board[pos].reveal
-        # debugger
-        @board[pos].reveal#
+    def recursive_reveal(pos)
+ 
+        @board[pos].reveal
         if @board[pos].neighbor_bomb_count==0
             
             @board[pos].neighbors.each do |neighbor|
-                # if neighbor.tile_indices != pos
-                #if neighbor has neighbors which include pos then delete pos
+           
                 if !neighbor.revealed
                 recursive_reveal(neighbor.tile_indices)
                 end
@@ -107,10 +115,8 @@ class Game
         end 
     
     end
-        # end 
         
     end    
-# end
 
 
 newboard=Board.new()

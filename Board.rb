@@ -13,7 +13,7 @@ class Board
         end
         indices=(0..8).to_a
         already_seen=[]
-        10.times do 
+        3.times do 
         i=indices.sample
         j=indices.sample
         
